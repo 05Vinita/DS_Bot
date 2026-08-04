@@ -17,7 +17,7 @@ If you ever see "module 'config' has no attribute ...", run:
 
 # False = you watch Chrome work (useful while debugging)
 # True  = runs invisibly in the background (faster)
-HEADLESS = False
+HEADLESS = True
 
 USER_AGENT = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
