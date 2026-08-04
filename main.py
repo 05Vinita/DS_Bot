@@ -164,6 +164,8 @@ def run_api():
     keyword = request.args.get("keyword")
     city = request.args.get("city")
 
+    print("RUN API HIT", keyword, city, flush=True)
+
     if not keyword or not city:
         return jsonify({"error": "keyword and city required"}), 400
 
