@@ -140,8 +140,8 @@ def main():
     parser.add_argument("--city", help="City to search in, e.g. 'Jaipur'")
     args = parser.parse_args()
 
-    keyword = args.keyword or input("Enter industry/keyword (e.g. Civil): ").strip()
-    city = args.city or input("Enter city name (e.g. Jaipur): ").strip()
+    keyword = args.keyword
+    city = args.city
 
     if not keyword or not city:
         print("Both keyword and city are required.")
@@ -150,5 +150,30 @@ def main():
     run_bot(keyword, city)
 
 
+from flask import Flask, request, jsonify
+
+app = Flask(__name__)
+
+@app.route("/")
+def home():
+    return "Bot is running 🚀"
+
+@app.route("/run", methods=["GET"])
+def run_api():
+    keyword = request.args.get("keyword")
+    city = request.args.get("city")
+
+    if not keyword or not city:
+        return jsonify({"error": "keyword and city required"}), 400
+
+    run_bot(keyword, city)
+
+    return jsonify({
+        "status": "success",
+        "keyword": keyword,
+        "city": city
+    })
+
+
 if __name__ == "__main__":
-    main()
+    app.run(host="0.0.0.0", port=10000)
